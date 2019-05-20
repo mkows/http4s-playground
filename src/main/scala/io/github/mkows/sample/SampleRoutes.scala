@@ -15,6 +15,7 @@ object SampleRoutes {
     HttpRoutes.of[F] {
       case GET -> Root / "joke" =>
         for {
+          _ <- Sync[F].delay( println("Running /joke...") )
           joke <- J.get
           resp <- Ok(joke)
         } yield resp
@@ -27,6 +28,7 @@ object SampleRoutes {
     HttpRoutes.of[F] {
       case GET -> Root / "hello" / name =>
         for {
+          _ <- Sync[F].delay( println("Running /hello/$name...") )
           greeting <- H.hello(HelloWorld.Name(name))
           resp <- Ok(greeting)
         } yield resp
